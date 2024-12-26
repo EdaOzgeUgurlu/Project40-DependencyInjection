@@ -1,41 +1,99 @@
-```markdown
-# Pratik - Dependency Injection
+# ğŸ“ Dependency Injection Uygulama1 - SÄ±nÄ±f Ã–ÄŸretmeni UygulamasÄ±
 
-## Görev
+Bu proje, basit bir sÄ±nÄ±f Ã¶ÄŸretmeni uygulamasÄ± Ã¶rneÄŸidir. Ã–ÄŸretmen sÄ±nÄ±flarÄ±nÄ±n baÄŸÄ±mlÄ±lÄ±k enjeksiyonu ile nasÄ±l kullanÄ±labileceÄŸini gÃ¶sterir.
 
-Aşağıdaki sınıflar arasında Dependency Injection kullanarak bir örnek oluşturun.
+## ğŸš€ BaÅŸlangÄ±Ã§
 
-### Sınıflar:
+AÅŸaÄŸÄ±daki adÄ±mlarÄ± takip ederek projeyi Ã§alÄ±ÅŸtÄ±rabilirsiniz.
 
-#### 1. **Teacher Sınıfı**
-- **Özellikler:**
-  - `FirstName: string`
-  - `LastName: string`
-- **Metotlar:**
-  - `GetInfo()`: Öğretmenin adını ve soyadını döndüren bir metot.
+### ğŸ“‹ Gereksinimler
 
-#### 2. **ClassRoom Sınıfı**
-- **Özellikler:**
-  - `Teacher`: `Ogretmen` türünde bir nesne
-- **Metotlar:**
-  - `GetTeacherInfo()`: Öğretmenin bilgilerini döndüren bir metot. `Teacher` içerisindeki `GetInfo()`'yu çağırması yeterli.
+- .NET 6 veya Ã¼zeri
+- PostgreSQL veritabanÄ±
 
----
+### âš™ï¸ Kurulum
 
-### Görev Açıklaması
+1. **Proje Deposu** ğŸ“‚:
+   ```bash
+   git clone https://github.com/kullaniciadi/uygulama1.git
+   cd uygulama1
+   ```
 
-1. `Teacher` ve `ClassRoom` sınıflarını yazın.
-2. `ClassRoom` sınıfının yapıcısına (constructor), `Teacher` sınıfının bir örneğini (instance) parametre olarak geçin. (**Constructor Injection** kullanın.)
-3. Her iki sınıfın metotlarını kullanarak bir `ClassRoom` nesnesi oluşturun ve öğretmenin bilgilerini ekrana yazdırın.
+2. **BaÄŸÄ±mlÄ±lÄ±klarÄ± YÃ¼kleyin** ğŸ“¦:
+   ```bash
+   dotnet restore
+   ```
 
----
+3. **VeritabanÄ±nÄ± AyarlayÄ±n** ğŸ› ï¸:
+    PostgreSQL veritabanÄ±nÄ±zÄ± kurun ve baÄŸlantÄ± dizesini `OnConfiguring` metodunda gÃ¼ncelleyin.
 
-### Önemli Not
+### â–¶ï¸ Ã‡alÄ±ÅŸtÄ±rma
 
-**Dependency Injection**: Bir sınıfın ihtiyaç duyduğu bağımlılıkların dışarıdan verilmesi anlamına gelir. Bu yaklaşım, sınıflar arasındaki bağımlılıkları azaltarak daha esnek ve sürdürülebilir bir yapı oluşturulmasını sağlar.
-
----
-
-### Ek
-- **`Ogretmen` sınıfı için bir Base Interface oluşturmayı unutmayın.** (`IOgretmen`)
+Projeyi aÅŸaÄŸÄ±daki komutla Ã§alÄ±ÅŸtÄ±rÄ±n:
+```bash
+dotnet run
 ```
+
+### ğŸ› ï¸ KullanÄ±m
+
+Proje Ã§alÄ±ÅŸtÄ±rÄ±ldÄ±ÄŸÄ±nda, Ã¶ÄŸretmen ve sÄ±nÄ±f bilgileri konsola yazdÄ±rÄ±lacaktÄ±r.
+
+### ğŸ’» Ã–rnek Kod
+
+```csharp
+using uygulama1.Services;
+
+public class Program
+{
+    public static void Main()
+    {
+        // 1. Ã–ÄŸretmen oluÅŸtur
+        ITeacher teacher = new Teacher("Mustafa Kemal", "AtatÃ¼rk");
+
+        // 2. SÄ±nÄ±f oluÅŸtur ve Ã¶ÄŸretmeni baÄŸla
+        ClassRoom classRoom = new ClassRoom(teacher);
+
+        // 3. Ã–ÄŸretmenin bilgilerini yazdÄ±r
+        Console.WriteLine(classRoom.GetTeacherInfo());
+    }
+}
+```
+
+## ğŸ“ YapÄ±
+
+Proje aÅŸaÄŸÄ±daki yapÄ±yÄ± takip eder:
+
+- `Program.cs`: UygulamanÄ±n giriÅŸ noktasÄ±.
+- `Services` klasÃ¶rÃ¼: Ã–ÄŸretmen ve sÄ±nÄ±f servislerini iÃ§erir.
+  - `ITeacher.cs`: Ã–ÄŸretmen arayÃ¼zÃ¼.
+  - `Teacher.cs`: Ã–ÄŸretmen sÄ±nÄ±fÄ±.
+  - `ClassRoom.cs`: SÄ±nÄ±f sÄ±nÄ±fÄ±.
+
+## ğŸ’¡ BaÄŸÄ±mlÄ±lÄ±k Enjeksiyonu (Dependency Injection)
+
+Bu projede baÄŸÄ±mlÄ±lÄ±k enjeksiyonu kullanarak `ClassRoom` sÄ±nÄ±fÄ±na bir Ã¶ÄŸretmen nesnesi enjekte edilmektedir. Bu, nesneler arasÄ± baÄŸÄ±mlÄ±lÄ±klarÄ± yÃ¶netmeyi ve test edilebilirliÄŸi artÄ±rmayÄ± saÄŸlar. AÅŸaÄŸÄ±daki Ã¶rnekte, `ClassRoom` sÄ±nÄ±fÄ±na bir `ITeacher` nesnesi enjekte edilmektedir.
+
+### ğŸ”§ Ã–rnek KullanÄ±m
+
+```csharp
+namespace uygulama1.Services
+{
+    public class ClassRoom
+    {
+        private readonly ITeacher _teacher; // BaÄŸÄ±mlÄ±lÄ±k olarak Ã¶ÄŸretmen nesnesi
+
+        // Constructor Injection: Ã–ÄŸretmen nesnesi dÄ±ÅŸarÄ±dan alÄ±nÄ±r.
+        public ClassRoom(ITeacher teacher)
+        {
+            _teacher = teacher;
+        }
+
+        // Ã–ÄŸretmenin bilgilerini dÃ¶ndÃ¼ren metot
+        public string GetTeacherInfo()
+        {
+            return _teacher.GetInfo();
+        }
+    }
+}
+```
+
