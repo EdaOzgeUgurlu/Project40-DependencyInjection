@@ -2,8 +2,8 @@
 {
     public interface ITeacher
     {
-        string FirstName { get; set; }
-        string LastName { get; set; }
-        string GetInfo();
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string GetInfo();
     }
 }
