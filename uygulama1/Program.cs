@@ -1,25 +1,18 @@
-var builder = WebApplication.CreateBuilder(args);
+using uygulama1.Services;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public static void Main()
+    {
+
+        // 1. Öðretmen oluþtur
+        ITeacher teacher = new Teacher("Mustafa Kemal", "Atatürk");
+
+        // 2. Sýnýf oluþtur ve öðretmeni baðla
+        ClassRoom classRoom = new ClassRoom(teacher);
+
+        // 3. Öðretmenin bilgilerini yazdýr
+        Console.WriteLine(classRoom.GetTeacherInfo());
+
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
